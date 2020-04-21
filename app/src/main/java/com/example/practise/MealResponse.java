@@ -3,7 +3,7 @@ package com.example.practise;
 import java.io.Serializable;
 import java.util.List;
 
-public class MealsList implements Serializable
+public class MealResponse implements Serializable
 {
 
     private List<Meal> meals = null;
@@ -13,14 +13,14 @@ public class MealsList implements Serializable
      * No args constructor for use in serialization
      *
      */
-    public MealsList() {
+    public MealResponse() {
     }
 
     /**
      *
      * @param meals
      */
-    public MealsList(List<Meal> meals) {
+    public MealResponse(List<Meal> meals) {
         super();
         this.meals = meals;
     }
