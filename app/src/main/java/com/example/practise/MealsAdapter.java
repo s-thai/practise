@@ -22,9 +22,6 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.MealsViewHol
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
-            //WHYYYYY IS THIS NULL
-            //Log.d("mealsadapter:", "v is " + v.getTag().toString());
             Meal meal = (Meal)v.getTag();
             if (twoPane == true){
                 Bundle arguments = new Bundle();

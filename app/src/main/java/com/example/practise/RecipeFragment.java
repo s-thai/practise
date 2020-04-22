@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecipeFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
-
+    String TAG = "RecipeFragment";
+    private String letter;
     private Meal mMeal;
 
     public RecipeFragment(){
@@ -40,7 +42,11 @@ public class RecipeFragment extends Fragment {
                     .build();
 
             RecipeAPI recipeAPI = retrofit.create(RecipeAPI.class);
-            Call<MealResponse> mealsCall = recipeAPI.getRecipesByFirstLetter("b");
+
+            letter = getArguments().getString(ARG_ITEM_ID);
+            Log.d(TAG, "letter is " + letter);
+            //need to somehow retreive what letter was cicked in mealsmainactivity and pass it to the following method
+            Call<MealResponse> mealsCall = recipeAPI.getRecipeByID(letter);
             mealsCall.enqueue(new Callback<MealResponse>() {
                 @Override
                 public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {

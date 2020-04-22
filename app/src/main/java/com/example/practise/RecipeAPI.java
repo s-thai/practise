@@ -12,4 +12,7 @@ public interface RecipeAPI {
 
     @GET("search.php")
     Call<MealResponse> getRecipesByFirstLetter(@Query(value = "f", encoded = true) String f);
+
+    @GET("lookup.php")
+    Call<MealResponse> getRecipeByID(@Query(value = "i", encoded = true) String i);
 }

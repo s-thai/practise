@@ -21,27 +21,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MealsMainActivity extends AppCompatActivity {
+public class MealsMainActivity extends AppCompatActivity{
     private boolean twoPane;
-    private String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+    private String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "r", "s", "t", "v", "w", "y"};
+
     private String letterSelected;
     private MealsAdapter mealsAdapter;
     private String TAG = "MealsMainActivity";
-
-    public String[] getAlphabet() {
-        return alphabet;
-    }
-
-    public Spinner getLetterSpinner() {
-        return letterSpinner;
-    }
-
     private Spinner letterSpinner;
-
-    public String getLetterSelected() {
-        return letterSelected;
-    }
-
 
 
     @Override
@@ -74,7 +61,13 @@ public class MealsMainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 letterSelected = letterSpinner.getItemAtPosition(position).toString();
+                Log.d(TAG, "letter selected is " + letterSelected);
+                Bundle bundle = new Bundle();
+                bundle.putString(RecipeFragment.ARG_ITEM_ID, letterSelected);
+                RecipeFragment rf = new RecipeFragment();
+                rf.setArguments(bundle);
                 Call<MealResponse> call = recipeAPI.getRecipesByFirstLetter(letterSelected);
+
                 call.enqueue(new Callback<MealResponse>() {
                     @Override
                     public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
@@ -100,6 +93,10 @@ public class MealsMainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public String getLetterSelected() {
+        return letterSelected;
     }
 
 }
