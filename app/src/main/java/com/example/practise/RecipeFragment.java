@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecipeFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
+
     private Meal mMeal;
 
     public RecipeFragment(){
@@ -28,14 +31,16 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments().containsKey((ARG_ITEM_ID))){
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://www.themealdb.com/api/json/v1/1/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
             RecipeAPI recipeAPI = retrofit.create(RecipeAPI.class);
-            Call<MealResponse> mealsCall = recipeAPI.getRecipes();
+            Call<MealResponse> mealsCall = recipeAPI.getRecipesByFirstLetter("b");
             mealsCall.enqueue(new Callback<MealResponse>() {
                 @Override
                 public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
